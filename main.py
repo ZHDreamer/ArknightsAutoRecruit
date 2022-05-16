@@ -112,18 +112,16 @@ def recruit():
             pass
         elif curr_status == 'recruiting':
             # 正在招募：不加速
-            return
+            continue
         click('开始招募干员', slot=slot)
         chosen_tags_index = choose_tags()
         # 如果未选择tags, 刷新tags
-        while can_refresh:
+        while can_refresh and chosen_tags_index == []:
             can_refresh = ScreenShot('refresh').refresh_status()
             if can_refresh:
                 click('刷新标签')
                 click('确认', sleep=2)
                 chosen_tags_index = choose_tags()
-                if chosen_tags_index:
-                    break
         click_tags(chosen_tags_index)
         # TODO select time function
         click('减少小时')
